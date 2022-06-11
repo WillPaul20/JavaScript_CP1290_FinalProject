@@ -1,3 +1,11 @@
 /* CSS file: */
 
 /* Add code here */
+
+h1 {
+    align-items: left;
+}
+
+body {
+    margin-left: 30px;
+}
