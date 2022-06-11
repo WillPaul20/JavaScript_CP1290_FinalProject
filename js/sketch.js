@@ -1,3 +1,4 @@
+// Function that generates a 2D array.
 function make2DArray(cols, rows) {
     var arr = new Array(cols);
     for (var i = 0; i < arr.length; i++) {
@@ -12,6 +13,7 @@ var rows;
 var w = 40;
 var totalMines = 10;
 
+// Runs at startup of web page to create the grid and set the mines
 function setup() {
 
     var cnv = createCanvas(401, 401);
@@ -36,7 +38,6 @@ function setup() {
         }
     }
 
-
     for (var numMines = 0; numMines < totalMines; numMines++){
         var index = floor(random(options.length));
         var choice = options[index];
@@ -47,7 +48,6 @@ function setup() {
         grid[i][j].mine = true;
     }
 
-
     for (var i = 0; i < cols; i++) {
         for (var j = 0; j < rows; j++) {
             grid[i][j].countMines();
@@ -55,6 +55,7 @@ function setup() {
     }
 }
 
+// When the used selects a mine, reveal all mines and display game over
 function gameOver() {
     for (var i = 0; i < cols; i++) {
         for (var j = 0; j < rows; j++) {
@@ -63,6 +64,7 @@ function gameOver() {
     }
 }
 
+// If user clicks mouse on a cell, reveal it's contents.
 function mousePressed(){
     for (var i = 0; i < cols; i++){
         for (var j = 0; j < rows; j++) {
@@ -77,8 +79,8 @@ function mousePressed(){
     }
 }
 
+// Loops infinitely after setup is run, draws the background and grid for the game
 function draw(){
-    // Loops infinitely after setup is run
     background(255);
     for (var i = 0; i < cols; i++){
         for (var j = 0; j < rows; j++) {

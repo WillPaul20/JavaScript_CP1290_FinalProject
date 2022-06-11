@@ -12,7 +12,7 @@ function Cell(columnIndex, rowIndex, w) {
     this.revealed = false;
 }
 
-
+// Function used to show the cell and it's contents
 Cell.prototype.show = function() {
     stroke(0);
     noFill();
@@ -37,12 +37,12 @@ Cell.prototype.show = function() {
     }
 }
 
-
+// Function used to determine if a mouse press event is within a cell
 Cell.prototype.contains = function(x, y) {
     return (x > this.x && x < this.x + this.w && y > this.y && y < this.y + this.w)
 }
 
-
+// Function used to reveal the contents of a cell after selection
 Cell.prototype.reveal = function() {
     this.revealed = true;
     if (this.neighborCount == 0) {
@@ -51,7 +51,8 @@ Cell.prototype.reveal = function() {
     }
 }
 
-
+// Function used to fill multiple cells when the cells have no
+// neighboring mines. This recursively calls itself via reveal function.
 Cell.prototype.floodFill = function() {
     for (var xOff = -1; xOff <= 1; xOff++) {
         for (var yOff = -1; yOff <= 1; yOff++) {
@@ -67,7 +68,8 @@ Cell.prototype.floodFill = function() {
     }
 }
 
-
+// Function used to calculate the number of mines neighboring
+// the selected cell.
 Cell.prototype.countMines = function() {
     if (this.mine) {
         this.neighborCount = -1;
