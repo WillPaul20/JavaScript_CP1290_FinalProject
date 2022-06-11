@@ -37,6 +37,10 @@ Cell.prototype.show = function() {
     }
 }
 
+Cell.prototype.flagMine = function() {
+    // Flag drawing time
+}
+
 // Function used to determine if a mouse press event is within a cell
 Cell.prototype.contains = function(x, y) {
     return (x > this.x && x < this.x + this.w && y > this.y && y < this.y + this.w)

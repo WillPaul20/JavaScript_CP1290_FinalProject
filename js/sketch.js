@@ -16,6 +16,8 @@ var totalMines = 10;
 // Runs at startup of web page to create the grid and set the mines
 function setup() {
 
+    document.getElementById("restartBtn").classList.toggle("hide");
+
     var cnv = createCanvas(401, 401);
     var x = 20;
     var y = 75;
@@ -62,20 +64,26 @@ function gameOver() {
             grid[i][j].revealed = true;
         }
     }
+    document.getElementById("restartBtn").classList.toggle("hide");
 }
 
 // If user clicks mouse on a cell, reveal it's contents.
 function mousePressed(){
-    for (var i = 0; i < cols; i++){
-        for (var j = 0; j < rows; j++) {
-            if (grid[i][j].contains(mouseX, mouseY)) {
-                grid[i][j].reveal();
-
-                if (grid[i][j].mine) {
-                    gameOver();
+    if (mouseButton === LEFT) {
+        for (var i = 0; i < cols; i++){
+            for (var j = 0; j < rows; j++) {
+                if (grid[i][j].contains(mouseX, mouseY)) {
+                    grid[i][j].reveal();
+    
+                    if (grid[i][j].mine) {
+                        gameOver();
+                    }
                 }
             }
         }
+    }
+    else if (mouseButton === CENTER) {
+        console.log("Middle Click")
     }
 }
 
@@ -87,4 +95,9 @@ function draw(){
             grid[i][j].show();
         }
     }
+}
+
+// Create a button to allow user to restart the game after losing.
+document.getElementById("restartBtn").onclick = function() {
+    setup();
 }
