@@ -1,4 +1,8 @@
-// Function that generates a 2D array.
+/*
+This function makes an array of columns 
+and stores the number of rows within.
+It then returns the array.
+*/
 function make2DArray(cols, rows) {
     var arr = new Array(cols);
     for (var i = 0; i < arr.length; i++) {
@@ -7,24 +11,29 @@ function make2DArray(cols, rows) {
     return arr;
 }
 
+// Initialize required variables.
 var grid;
 var cols;
 var rows;
+var winStatus = false;
+// w = width of each grid
 var w = 40;
+// Total number of mines determined by user difficulty selection,
 var totalMines = 10;
 
 // Runs at startup of web page to create the grid and set the mines
+// P5JS Function (Required)
 function setup() {
+    // Hide restart button from load.
+    document.getElementById("restart-button-container").classList.toggle("hide");
 
-    document.getElementById("restartBtn").classList.toggle("hide");
-
+    // Draw the canvas
     var cnv = createCanvas(401, 401);
-    var x = 20;
-    var y = 75;
     cnv.parent("canvas-div");
-
+    // Calculate the number of columns and rows
     cols = floor(width / w);
     rows = floor(height / w);
+    // Make the grid using the make2DArray function
     grid = make2DArray(cols, rows);
     for (var i = 0; i < cols; i++) {
         for (var j = 0; j < rows; j++) {
@@ -40,6 +49,11 @@ function setup() {
         }
     }
 
+    /*
+    Place the mines randomly throughout the grid and using
+    splice to ensure that the chosen index for the mine cannot be
+    used again.
+    */
     for (var numMines = 0; numMines < totalMines; numMines++){
         var index = floor(random(options.length));
         var choice = options[index];
@@ -50,9 +64,36 @@ function setup() {
         grid[i][j].mine = true;
     }
 
+    // Count the number of neighbors for all mines on the grid.
     for (var i = 0; i < cols; i++) {
         for (var j = 0; j < rows; j++) {
             grid[i][j].countMines();
+        }
+    }
+}
+
+// Loops infinitely after setup is run, draws the background and grid for the game
+// P5JS function (Required)
+function draw(){
+    background(255);
+    for (var i = 0; i < cols; i++){
+        for (var j = 0; j < rows; j++) {
+            grid[i][j].show();
+        }
+    }
+}
+
+// If user clicks mouse on a cell, reveal it's contents.
+function mousePressed(){
+    for (var i = 0; i < cols; i++){
+        for (var j = 0; j < rows; j++) {
+            if (grid[i][j].contains(mouseX, mouseY)) {
+                grid[i][j].reveal(mouseButton);
+
+                if (grid[i][j].mine && mouseButton != RIGHT) {
+                    gameOver();
+                }
+            }
         }
     }
 }
@@ -62,39 +103,15 @@ function gameOver() {
     for (var i = 0; i < cols; i++) {
         for (var j = 0; j < rows; j++) {
             grid[i][j].revealed = true;
+            grid[i][j].flagged = false;
         }
     }
-    document.getElementById("restartBtn").classList.toggle("hide");
+    // Display restart button when game is over.
+    document.getElementById("restart-button-container").classList.toggle("hide");
 }
 
-// If user clicks mouse on a cell, reveal it's contents.
-function mousePressed(){
-    if (mouseButton === LEFT) {
-        for (var i = 0; i < cols; i++){
-            for (var j = 0; j < rows; j++) {
-                if (grid[i][j].contains(mouseX, mouseY)) {
-                    grid[i][j].reveal();
-    
-                    if (grid[i][j].mine) {
-                        gameOver();
-                    }
-                }
-            }
-        }
-    }
-    else if (mouseButton === CENTER) {
-        console.log("Middle Click")
-    }
-}
-
-// Loops infinitely after setup is run, draws the background and grid for the game
-function draw(){
-    background(255);
-    for (var i = 0; i < cols; i++){
-        for (var j = 0; j < rows; j++) {
-            grid[i][j].show();
-        }
-    }
+function gameWin() {
+    gameOver();
 }
 
 // Create a button to allow user to restart the game after losing.

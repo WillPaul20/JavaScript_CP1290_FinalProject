@@ -12,18 +12,34 @@
 <body>
     <h1>CP1290 Project | MineSweeper</h1>
 
+    <div id="ScoreBox">
+        <h2>Current Score:</h2>
+    </div>
 
-    <div id="canvas-div">
+    <div oncontextmenu="return false" id="canvas-div">
         <!-- Div container for JS to draw game -->
     </div>
 
-    <div>
-        <p>This is where the difficulty options will live</p>
+    <div id="game-status-message">
+        <h2 class="hide" id="game-over-message">Game Over! Click button to play again!</h2>
+        <h2 class="hide" id="game-win-message">You Win! You successfully found all mines!</h2>
+    </div>
 
-        <div>
-            <button id="restartBtn" type="button">Play Again!</button>
-        </div>
+    
+    <br>
+    <div id="restart-button-container">
+        <button class="button" id="restartBtn" type="button">Play Again?</button>
+    </div>
 
+    <br>
+    <div id="hints">
+        <h2>Helpful Material:</h2>
+        <p>The objective of the game is to reveal all squares which are not mines.</p>
+        <p>Selecting a mine will result in game over.</p>
+        <p> Use flags to make note of potential mine locations. Good luck!</p>
+        <p id="bolded">Left Click to select a grid square.</p>
+        <p id="bolded">Right Click to flag a grid square.</p>
+        <p id="bolded">Right Click flagged grid square to unflag.</p>
     </div>
   
 
