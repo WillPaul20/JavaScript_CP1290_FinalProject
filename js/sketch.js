@@ -56,15 +56,6 @@ function gameOver() {
     document.getElementById("restart-button-container").classList.remove("hide");
 }
 
-/*
-This function will be called if the user wins the game.
-This is achieved by clearing all squares and not blowing
-up a bomb.
-*/
-// function gameWin() {
-//     winStatus = true;
-//     gameOver();
-// }
 
 // This function will be called to reset the game state after user selects "play again"
 function resetGame() {
@@ -73,17 +64,23 @@ function resetGame() {
     document.getElementById("restart-button-container").classList.add("hide");
     document.getElementById("game-over-message").classList.add("hide");
     document.getElementById("game-win-message").classList.add("hide");
+    setup(); // Redraw the game.
 }
 
-// Create a button to allow user to restart the game after losing.
-document.getElementById("restartBtn").onclick = function() {
-    resetGame(); // Reset game to default state.
+/*
+Function which will set number of bombs in game based on difficulty.
+Easy = 5, Moderate = 10, Difficult = 20
+Then will redraw game with new number of mines.
+*/
+function difficultyButton(difficulty) {
+    totalMines = difficulty;
     setup(); // Redraw the game.
 }
 
 // Runs at startup of web page to create the grid and set the mines
 // P5JS Function (Required)
 function setup() {
+    console.log(`Total Mines: ${totalMines}`);
     // Draw the canvas
     var cnv = createCanvas(401, 401);
     cnv.parent("canvas-div");
@@ -129,6 +126,7 @@ function setup() {
     }
 }
 
+
 // Loops infinitely after setup is run, draws the background and grid for the game
 // P5JS function (Required)
 function draw(){
@@ -138,7 +136,7 @@ function draw(){
             grid[i][j].show();
         }
     }
-    if (totalRevealed == 90 && winStatus) {
+    if (totalRevealed == (100 - totalMines) && winStatus) {
         gameOver();
     }
     else if (!winStatus) {

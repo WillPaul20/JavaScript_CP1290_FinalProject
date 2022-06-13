@@ -12,10 +12,19 @@
 <body>
     <h1>CP1290 Project | MineSweeper</h1>
 
-    <div id="ScoreBox">
-        <h2>Current Score:</h2>
+    <div id="Difficulty Selection:">
+        <button class="eButton" id="easyBtn" type="button" onclick="difficultyButton(5)">
+            Easy
+        </button>
+        <button class="mButton" id="modBtn" type="button" onclick="difficultyButton(10)">
+            Moderate
+        </button>
+        <button class="dButton" id="difBtn" type="button" onclick="difficultyButton(20)">
+            Difficult
+        </button>
     </div>
 
+    <br>
     <div oncontextmenu="return false" id="canvas-div">
         <!-- Div container for JS to draw game -->
     </div>
@@ -27,16 +36,18 @@
 
     
     <br>
-    <div id="restart-button-container">
-        <button class="button" id="restartBtn" type="button">Play Again?</button>
+    <div class="hide" id="restart-button-container">
+        <button class="button" id="restartBtn" type="button" onclick="resetGame()">Play Again?</button>
     </div>
 
     <br>
     <div id="hints">
         <h2>Helpful Material:</h2>
-        <p>The objective of the game is to reveal all squares which are not mines.</p>
-        <p>Selecting a mine will result in game over.</p>
-        <p> Use flags to make note of potential mine locations. Good luck!</p>
+        <p>
+            The object of the game is to clear the board without selecting
+            any mines. There will be anywhere from 5, 10 (Default), or 20 mines based
+            on the difficulty button selected.
+        </p>
         <p id="bolded">Left Click to select a grid square.</p>
         <p id="bolded">Right Click to flag a grid square.</p>
         <p id="bolded">Right Click flagged grid square to unflag.</p>

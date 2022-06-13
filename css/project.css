@@ -23,15 +23,17 @@ body {
     background-color: #CAE4F1;
     border: 2px solid black;
     border-radius: 5px;
+    padding: 10px;
     text-align: center;
+    width: 400px
 }
 
 #bolded {
-    font: bold;
+    font-weight: bold;
 }
 
 .button {
-    background-color: #555555; /* Green */
+    background-color: #555555;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -39,8 +41,59 @@ body {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-  }
+}
 
 .button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.eButton {
+    background-color: #e7e7e7;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.eButton:focus {
+    background-color: black;
+    color: white;
+    border: 2px solid #e7e7e7;
+}
+
+.mButton {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.mButton:focus {
+    background-color: black;
+    color: white;
+    border: 2px solid #008CBA;
+}
+
+.dButton {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.dButton:focus {
+    background-color: black;
+    color: white;
+    border: 2px solid #f44336;
 }
