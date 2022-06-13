@@ -1,5 +1,4 @@
 // Cell Script
-
 function Cell(columnIndex, rowIndex, w) {
     // Initialize required variables
     this.columnIndex = columnIndex;
@@ -13,6 +12,7 @@ function Cell(columnIndex, rowIndex, w) {
     this.mine = false;
     this.revealed = false;
     this.flagged = false;
+    this.alreadyRevealed = false;
 }
 
 // Function used to show the cell and it's contents
@@ -43,6 +43,9 @@ Cell.prototype.show = function() {
     otherwise show the number of neighbors.
     */
     if(this.revealed){
+        totalRevealed += this.countRevealed();
+        this.alreadyRevealed = true;
+
         if (this.mine){
             fill(127);
             ellipse(xCenter, yCenter, this.w * 0.5);
@@ -57,6 +60,7 @@ Cell.prototype.show = function() {
                 text(this.neighborCount, xCenter, this.y +this.w - 10);
             }
         }
+
     }
 }
 
@@ -152,4 +156,14 @@ Cell.prototype.countMines = function() {
     // console.log(total);
     // set the total neighboring mines to neighborCount
     this.neighborCount = total;
+}
+
+
+Cell.prototype.countRevealed = function() {
+    if (this.revealed && !this.mine && !this.alreadyRevealed) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }

@@ -1,3 +1,13 @@
+// Initialize required variables.
+var grid;
+var cols;
+var rows;
+var winStatus = true;
+var w = 40; // w = width of each grid
+var totalMines = 10;
+var totalRevealed = 0;
+
+
 /*
 This function makes an array of columns 
 and stores the number of rows within.
@@ -11,22 +21,69 @@ function make2DArray(cols, rows) {
     return arr;
 }
 
-// Initialize required variables.
-var grid;
-var cols;
-var rows;
-var winStatus = false;
-// w = width of each grid
-var w = 40;
-// Total number of mines determined by user difficulty selection,
-var totalMines = 10;
+// If user clicks mouse on a cell, reveal it's contents.
+function mousePressed(){
+    for (var i = 0; i < cols; i++){
+        for (var j = 0; j < rows; j++) {
+            if (grid[i][j].contains(mouseX, mouseY)) {
+                grid[i][j].reveal(mouseButton);
+                
+                if (grid[i][j].mine && mouseButton != RIGHT) {
+                    winStatus = false;
+                }
+            }
+        }
+    }
+}
+
+// When the used selects a mine, reveal all mines and display game over
+function gameOver() {
+    for (var i = 0; i < cols; i++) {
+        for (var j = 0; j < rows; j++) {
+            grid[i][j].revealed = true;
+            grid[i][j].flagged = false;
+        }
+    }
+    // If player lost the game, display game over message
+    if (!winStatus) {
+        document.getElementById("game-over-message").classList.remove("hide");
+    }
+    // Otherwise, they won the game!
+    else {
+        document.getElementById("game-win-message").classList.remove("hide");
+    }
+    // Display restart button when game is over if they win or lose.
+    document.getElementById("restart-button-container").classList.remove("hide");
+}
+
+/*
+This function will be called if the user wins the game.
+This is achieved by clearing all squares and not blowing
+up a bomb.
+*/
+// function gameWin() {
+//     winStatus = true;
+//     gameOver();
+// }
+
+// This function will be called to reset the game state after user selects "play again"
+function resetGame() {
+    totalRevealed = 0;
+    winStatus = true;
+    document.getElementById("restart-button-container").classList.add("hide");
+    document.getElementById("game-over-message").classList.add("hide");
+    document.getElementById("game-win-message").classList.add("hide");
+}
+
+// Create a button to allow user to restart the game after losing.
+document.getElementById("restartBtn").onclick = function() {
+    resetGame(); // Reset game to default state.
+    setup(); // Redraw the game.
+}
 
 // Runs at startup of web page to create the grid and set the mines
 // P5JS Function (Required)
 function setup() {
-    // Hide restart button from load.
-    document.getElementById("restart-button-container").classList.toggle("hide");
-
     // Draw the canvas
     var cnv = createCanvas(401, 401);
     cnv.parent("canvas-div");
@@ -81,40 +138,11 @@ function draw(){
             grid[i][j].show();
         }
     }
-}
-
-// If user clicks mouse on a cell, reveal it's contents.
-function mousePressed(){
-    for (var i = 0; i < cols; i++){
-        for (var j = 0; j < rows; j++) {
-            if (grid[i][j].contains(mouseX, mouseY)) {
-                grid[i][j].reveal(mouseButton);
-
-                if (grid[i][j].mine && mouseButton != RIGHT) {
-                    gameOver();
-                }
-            }
-        }
+    if (totalRevealed == 90 && winStatus) {
+        gameOver();
     }
-}
-
-// When the used selects a mine, reveal all mines and display game over
-function gameOver() {
-    for (var i = 0; i < cols; i++) {
-        for (var j = 0; j < rows; j++) {
-            grid[i][j].revealed = true;
-            grid[i][j].flagged = false;
-        }
+    else if (!winStatus) {
+        gameOver();
     }
-    // Display restart button when game is over.
-    document.getElementById("restart-button-container").classList.toggle("hide");
-}
-
-function gameWin() {
-    gameOver();
-}
-
-// Create a button to allow user to restart the game after losing.
-document.getElementById("restartBtn").onclick = function() {
-    setup();
+    // console.log(totalRevealed);
 }
