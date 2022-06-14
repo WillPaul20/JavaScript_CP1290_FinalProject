@@ -23,6 +23,13 @@ I plan to utilize information gathered from a YouTube tutorial I have recently f
 
 At this time my goal is to build out a fully functioning base version of the game and allow for the user to select their difficulty (i.e Number of mines) and have a scoring system built in as well.
 
+## Final Notes & Future Updates:
+
+Upon completion of this project there a few notable things I did not get to complete which I wanted to. These things will be completed over time as I am (at the time of writing this) one week away from my exams. So I have more pressing matters to atend to! But, hopefully coming soon I'll be able to check off the following incomplete features I wish to implement:
+* Scoring System
+* Timer
+* Better UI
+
 ## Credit Where Credit is Due:
 I used this YouTube video as a major inspiration for this project and added / tweaked a few things to fit what I was wanting to build for this project.
 [The Coding Train - MineSweeper Coding Challenge](https://www.youtube.com/watch?v=LFU5ZlrR21E&t=1815s)
