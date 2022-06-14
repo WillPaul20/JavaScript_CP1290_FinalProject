@@ -46,12 +46,14 @@ Cell.prototype.show = function() {
         totalRevealed += this.countRevealed();
         this.alreadyRevealed = true; // Set grid cell as revealed
 
+        // Draw Mine
         if (this.mine){
             fill(127);
             ellipse(xCenter, yCenter, this.w * 0.5);
             fill("Red");
             ellipse(xCenter, yCenter, this.w * 0.15);
         }
+        // Draw revealed cell
         else {
             fill(200);
             rect(this.x, this.y, this.w, this.w);
