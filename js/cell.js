@@ -44,18 +44,20 @@ Cell.prototype.show = function() {
     */
     if(this.revealed){
         totalRevealed += this.countRevealed();
-        this.alreadyRevealed = true;
+        this.alreadyRevealed = true; // Set grid cell as revealed
 
         if (this.mine){
             fill(127);
             ellipse(xCenter, yCenter, this.w * 0.5);
+            fill("Red");
+            ellipse(xCenter, yCenter, this.w * 0.15);
         }
         else {
             fill(200);
             rect(this.x, this.y, this.w, this.w);
             if (this.neighborCount > 0) {
                 textAlign(CENTER);
-                fill(("Blue"));
+                fill("Blue");
                 textSize(30);
                 text(this.neighborCount, xCenter, this.y +this.w - 10);
             }
